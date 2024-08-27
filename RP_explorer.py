@@ -8,18 +8,20 @@ import mysql.connector
 import csv
 
 window = ct.CTk()
-window.geometry("1000x1000")
+screen_width = window.winfo_screenwidth()
+screen_height = window.winfo_screenheight()
+window.geometry(f"{screen_width}x{screen_height}+0+0")
 window.configure(fg_color='#FFFFFF') 
 window.title("Elevator")
 
-logo = ct.CTkImage(light_image=Image.open(r"C:\Users\sebas\Downloads\rplogo1.png"), size=(190, 80))
+logo = ct.CTkImage(light_image=Image.open(r"C:\Users\sebas\Downloads\rplogo1.png"), size=(320, 80))
 display = ct.CTkLabel(window, text="", image=logo)
 display.pack(pady=5) 
 
 nam = ct.CTkLabel(window,text="Ruhrpumpen Elevator Data Engine",text_color="black", font=("Arial", 20))
 nam.pack()
 
-frame = ct.CTkFrame(master=window, width=650, height=550, fg_color="#4A90E2", border_color="#000000", border_width=3)
+frame = ct.CTkFrame(master=window, width=50, height=550, fg_color="#4A90E2", border_color="#000000", border_width=3)
 frame.pack(fill='both',expand=True, padx=10, pady=10)
 
 vframe = ct.CTkScrollableFrame(master=frame, width=450, height=200, fg_color="#FFFFFF", border_color="#000000", border_width=3,orientation="horizontal")
