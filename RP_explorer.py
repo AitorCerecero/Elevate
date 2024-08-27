@@ -22,7 +22,7 @@ nam.pack()
 frame = ct.CTkFrame(master=window, width=650, height=550, fg_color="#4A90E2", border_color="#000000", border_width=3)
 frame.pack(fill='both',expand=True, padx=10, pady=10)
 
-vframe = ct.CTkScrollableFrame(master=frame, width=450, height=200, fg_color="#FFFFFF", border_color="#000000", border_width=3)
+vframe = ct.CTkScrollableFrame(master=frame, width=450, height=200, fg_color="#FFFFFF", border_color="#000000", border_width=3,orientation="horizontal")
 vframe.pack(side="right",expand=True, padx=8,pady=6, fill="both")
 
 Title = ct.CTkLabel(frame,text="To convert, select a .xslm file")
