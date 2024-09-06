@@ -8,8 +8,11 @@ import pandas as pd
 from PIL import Image
 import mysql.connector
 import csv
-
+import base64
+from io import BytesIO
 import os
+from images import logo_source
+from images import logo2_source
 
 
 window = ct.CTk()
@@ -22,11 +25,20 @@ window.title("Elevator")
 logo_frame = ct.CTkFrame(window,fg_color="#FFFFFF")
 logo_frame.pack(side='top', fill='x')
 
-logo = ct.CTkImage(light_image=Image.open(r"C:\Users\sebas\Downloads\rplogo1.png"), size=(320, 80))
+
+
+logo_deco = base64.b64decode(logo_source)
+logo2_deco = base64.b64decode(logo2_source)
+
+
+logo_fin = Image.open(BytesIO(logo_deco))
+logo2_fin = Image.open(BytesIO(logo2_deco))
+
+logo = ct.CTkImage(light_image=logo2_fin, size=(320, 80))
 display = ct.CTkLabel(logo_frame, text="", image=logo)
 display.pack(side='left', pady=1)
 
-logo2 = ct.CTkImage(light_image=Image.open(r"C:\Users\sebas\Downloads\elevator-removebg-preview.png"), size=(320, 80))
+logo2 = ct.CTkImage(light_image=logo_fin, size=(320, 80))
 display2 = ct.CTkLabel(logo_frame, text="", image=logo2)
 display2.pack(side='right', pady=1)
 
@@ -126,6 +138,9 @@ inner_frame3 = ct.CTkFrame(
 )
 inner_frame3.pack(fill='both', padx=1, pady=1, expand=True)
 
+usname = ct.CTkLabel(window,text="Welcome "+os.getlogin(),text_color="black")
+usname.pack(anchor='center',padx=5, pady=5)
+
 def create_label(parent, text):
     label = ct.CTkLabel(parent, text=text, anchor='w', fg_color="#000000", text_color="#FFFFFF")
     label.pack(fill='x', padx=0, pady=0)
@@ -161,8 +176,9 @@ def clear_csv_view():
     tree["columns"] = ()
     tree["show"] = ""
     csvstat.configure(text="")
+
     for widget in inner_frame3.winfo_children():
-        widget.destroy()
+        widget.configure(text="")
 
 def clear_conv_log():
     global excel        
@@ -172,8 +188,12 @@ def clear_conv_log():
     false.configure(text="")
     saved_file_label.configure(text="") 
 
-
-
+def clear_db_details():
+    global file_select
+    file_select = None
+    for widget in inner_frame2.winfo_children():
+        widget.configure(text="")
+    
 
 def select_csv(): #Elegit CSV para Insertar a Base de Datos
     global file_select
@@ -223,7 +243,6 @@ def other_csv_viewers(): #Abrir cualquier Otro CSV en el visor construido
         csvstat.configure(text="Cant start Reader Engine, File not Selected")
 
 def choose_excel():
-
     global excel
     excel = fd.askopenfilename(
             title="Select an Excel File",
@@ -235,8 +254,6 @@ def choose_excel():
     elif excel == "":
         chosen_file_label.configure(text="No File Selected")
         excel = None
-
-
 
 def dbconn():
     global cursor,connector
@@ -270,7 +287,7 @@ def insert():
                 for row in reader:
                     cursor.execute("INSERT INTO pumps (Company,Flow,Head,Pump_Speed_in_RPM,Max_BHP,Pump_Model,Line,Stages,Pump_Size) VALUES (%s, %s,%s, %s,%s, %s,%s, %s,%s)", (row[0], row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8]))
         connector.commit()
-    # Actualizar el estado de la inserción
+
     def insertstatus():
         if cursor.rowcount > 0:
             return "Successfully inserted Data"
