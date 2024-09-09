@@ -26,7 +26,6 @@ logo_frame = ct.CTkFrame(window,fg_color="#FFFFFF")
 logo_frame.pack(side='top', fill='x')
 
 
-
 logo_deco = base64.b64decode(logo_source)
 logo2_deco = base64.b64decode(logo2_source)
 
@@ -171,8 +170,7 @@ false = create_label(inner_frame, "")
 csvstat = create_label2(inner_frame3, "")
 
 def clear_csv_view():
-    global file_select,file_selects
-    file_select = None
+    global file_selects
     file_selects = None
     tree.delete(*tree.get_children())
     tree["columns"] = ()
@@ -327,6 +325,7 @@ select_csv_file.configure(command=select_csv)
 other_file_viewer.configure(command=other_csv_viewers)
 close_viewer.configure(command=clear_csv_view)
 clear.configure(command=clear_conv_log)
+clear_db.configure(command=clear_db_details)
 inserter.configure(command=insert)
 
 window.mainloop()
