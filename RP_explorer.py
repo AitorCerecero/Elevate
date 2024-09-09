@@ -86,7 +86,6 @@ nombre_entry.pack(anchor='center',padx=10, pady=10)
 save_button = ct.CTkButton(frame, text="Save")
 save_button.pack(anchor='center',padx=10, pady=10)
 
-
 data_connection = ct.CTkButton(framex,text="Connect To Database")
 data_connection.pack(anchor='center',padx=10, pady=10)
 
@@ -107,6 +106,9 @@ sys_label.pack(anchor='center',fill='both',expand=True,pady=5,padx=5)
 
 clear = ct.CTkButton(frame, text="Clear Conversion Log and Release Resources")
 clear.pack(anchor='center',padx=10, pady=10)
+
+clear_db = ct.CTkButton(framex, text="Clear Database Log and Release Resources")
+clear_db.pack(anchor='center',padx=10, pady=10)
 
 inner_frame = ct.CTkScrollableFrame(
     master=frame,
@@ -257,7 +259,7 @@ def choose_excel():
 
 def dbconn():
     global cursor,connector
-    connector = mysql.connector.connect(user='root', password='Focus2009',
+    connector = mysql.connector.connect(user='root', password='FireSystems25',
                                  host='127.0.0.1',
                                  database='rp',
                                  use_pure=True,
