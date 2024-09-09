@@ -138,11 +138,8 @@ inner_frame3 = ct.CTkFrame(
 inner_frame3.pack(fill='both', padx=1, pady=1, expand=True)
 
 def get_full_name():
-    try:
         user_info = win32api.GetUserNameEx(win32api.NameDisplay)
         return user_info
-    except Exception as e:
-        return str(e)
 
 full_name = get_full_name()
 
