@@ -13,6 +13,7 @@ from io import BytesIO
 import os
 from images import logo_source
 from images import logo2_source
+import win32api
 
 window = ct.CTk()
 screen_width = window.winfo_screenwidth()
@@ -32,11 +33,11 @@ logo2_fin = Image.open(BytesIO(logo2_deco))
 
 logo = ct.CTkImage(light_image=logo2_fin, size=(320, 80))
 display = ct.CTkLabel(logo_frame, text="", image=logo)
-display.pack(side='left', pady=1)
+display.pack(side='left', pady=8,padx=8)
 
 logo2 = ct.CTkImage(light_image=logo_fin, size=(320, 80))
 display2 = ct.CTkLabel(logo_frame, text="", image=logo2)
-display2.pack(side='right', pady=1)
+display2.pack(side='right', pady=12,padx=12)
 
 tabview = ct.CTkTabview(window)
 tabview.pack()
@@ -136,8 +137,17 @@ inner_frame3 = ct.CTkFrame(
 )
 inner_frame3.pack(fill='both', padx=1, pady=1, expand=True)
 
-usname = ct.CTkLabel(window,text="Welcome "+os.getlogin(),text_color="black")
-usname.pack(anchor='center',padx=5, pady=5)
+def get_full_name():
+    try:
+        user_info = win32api.GetUserNameEx(win32api.NameDisplay)
+        return user_info
+    except Exception as e:
+        return str(e)
+
+full_name = get_full_name()
+
+usname = ct.CTkLabel(window, text="Welcome " + full_name, text_color="black")
+usname.pack(anchor='center', padx=5, pady=5)
 
 def create_label(parent, text):
     label = ct.CTkLabel(parent, text=text, anchor='w', fg_color="#000000", text_color="#FFFFFF")
