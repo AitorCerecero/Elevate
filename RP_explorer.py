@@ -14,7 +14,6 @@ import os
 from images import logo_source
 from images import logo2_source
 
-
 window = ct.CTk()
 screen_width = window.winfo_screenwidth()
 screen_height = window.winfo_screenheight()
@@ -25,10 +24,8 @@ window.title("Elevator")
 logo_frame = ct.CTkFrame(window,fg_color="#FFFFFF")
 logo_frame.pack(side='top', fill='x')
 
-
 logo_deco = base64.b64decode(logo_source)
 logo2_deco = base64.b64decode(logo2_source)
-
 
 logo_fin = Image.open(BytesIO(logo_deco))
 logo2_fin = Image.open(BytesIO(logo2_deco))
